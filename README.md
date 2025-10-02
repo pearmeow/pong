@@ -8,7 +8,7 @@ Features
 
 - [ ] Two paddles
 - [ ] Movable paddles with WASD and arrow keys for left and right respectively
-- [ ] Ball that starts in middle
+- [x] Ball that starts in middle
 - [ ] Ball bounces off top and bottom walls
 - [ ] Ball bounces off paddles
 - [ ] Game over when ball hits right and left walls
