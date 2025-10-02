@@ -17,10 +17,6 @@ constexpr Vector2 ORIGIN = {SCREEN_WIDTH / 2.0, SCREEN_HEIGHT / 2.0};
 
 // Global Variables
 AppStatus gAppStatus = RUNNING;
-float gAngle = 0.0f;
-float gScaleFactor = 100;
-Direction gDirection = LEFT;
-Vector2 gPosition = {0.0f, 0.0f};
 
 // Function Declarations
 void initialise();
