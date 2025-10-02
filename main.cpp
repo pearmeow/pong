@@ -25,10 +25,14 @@ constexpr char BOMB_FP[] = "./assets/troll_bomb.png";
 // Global Variables
 AppStatus gAppStatus = RUNNING;
 Texture2D gIsaac;
-Vector2 gIsaacScale = {500.0f, 500.0f};
-Vector2 gIsaacPos = ORIGIN;
+Vector2 gIsaacScale = {100.0f, 110.0f};
+Vector2 gIsaacPos = {ORIGIN.x / 3, ORIGIN.y};
 Texture2D gRoom;
+Vector2 gRoomScale = {SCREEN_WIDTH, SCREEN_HEIGHT};
+Vector2 gRoomPos = ORIGIN;
 Texture2D gBomb;
+Vector2 gBombScale = {50.0f, 50.0f};
+Vector2 gBombPos = ORIGIN;
 
 // Function Declarations
 void initialise();
@@ -66,10 +70,19 @@ void render() {
 
     Rectangle isaacDest = {gIsaacPos.x, gIsaacPos.y, static_cast<float>(gIsaacScale.x),
                            static_cast<float>(gIsaacScale.y)};
+    Rectangle roomDest = {gRoomPos.x, gRoomPos.y, static_cast<float>(gRoomScale.x),
+                          static_cast<float>(gRoomScale.y)};
+    Rectangle bombDest = {gBombPos.x, gBombPos.y, static_cast<float>(gBombScale.x),
+                          static_cast<float>(gBombScale.y)};
+
     Vector2 isaacOrigin = {static_cast<float>(gIsaacScale.x) / 2.0f, static_cast<float>(gIsaacScale.y) / 2.0f};
+    Vector2 roomOrigin = {static_cast<float>(gRoomScale.x) / 2.0f, static_cast<float>(gRoomScale.y) / 2.0f};
+    Vector2 bombOrigin = {static_cast<float>(gBombScale.x) / 2.0f, static_cast<float>(gBombScale.y) / 2.0f};
 
     // Draw something
+    DrawTexturePro(gRoom, roomArea, roomDest, roomOrigin, 0.0f, WHITE);
     DrawTexturePro(gIsaac, isaacArea, isaacDest, isaacOrigin, 0.0f, WHITE);
+    DrawTexturePro(gBomb, bombArea, bombDest, bombOrigin, 0.0f, WHITE);
 
     EndDrawing();
 }
