@@ -6,7 +6,7 @@ A pong game made with raylib
 Features
 --------
 
-- [ ] Two paddles
+- [x] Two paddles
 - [ ] Movable paddles with WASD and arrow keys for left and right respectively
 - [x] Ball that starts in middle
 - [ ] Ball bounces off top and bottom walls
