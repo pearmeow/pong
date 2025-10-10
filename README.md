@@ -13,8 +13,8 @@ Features
 - [x] Up and down motion for right paddle when singleplayer
 - [x] Ball moves in some direction upon game start
 - [x] Ball bounces off top and bottom walls
-- [ ] Ball bounces off paddles
+- [x] Ball bounces off paddles
 - [ ] Game over when ball hits right and left walls
-- [ ] Generate multiple balls when number is pressed
+- [x] Generate multiple balls when number is pressed
 - [x] Theme in the background
 - [ ] Game over screen
