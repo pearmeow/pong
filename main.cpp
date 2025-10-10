@@ -8,11 +8,13 @@
  * Academic Misconduct.
  */
 
+#include <cstdio>
+
 #include "raylib.h"
 
 // Enums
 enum AppStatus { TERMINATED, RUNNING };
-enum Direction { NONE, UP, DOWN };
+enum Direction { NONE, UP, DOWN, LEFT, RIGHT };
 
 // Global Constants
 constexpr int SCREEN_WIDTH = 800, SCREEN_HEIGHT = 450, FPS = 60, SIDES = 4;
@@ -23,6 +25,7 @@ constexpr char AZAZEL_FP[] = "./assets/azazel.png";
 constexpr char ROOM_FP[] = "./assets/sac_room.png";
 constexpr char BOMB_FP[] = "./assets/troll_bomb.png";
 constexpr float VELOCITY = 275.0f;
+constexpr float BALL_VELOCITY = 175.0f;
 
 // Global Variables
 AppStatus gAppStatus = RUNNING;
@@ -40,6 +43,8 @@ Vector2 gRoomPos = ORIGIN;
 Texture2D gBomb;
 Vector2 gBombScale = {40.0f, 40.0f};
 Vector2 gBombPos = ORIGIN;
+Direction gBombXDirection = LEFT;
+Direction gBombYDirection = UP;
 
 bool gMultiplayer = false;
 float gPreviousTicks = 0.0f;
@@ -105,6 +110,49 @@ void update() {
         gAzazelPos.y -= VELOCITY * deltaTime;
     } else if (gAzazelDirection == DOWN) {
         gAzazelPos.y += VELOCITY * deltaTime;
+    }
+
+    // if ball is colliding with top or bottom
+    if (gBombPos.y - gBombScale.y / 2.0 < 0) {
+        gBombYDirection = DOWN;
+    } else if (gBombPos.y + gBombScale.y / 2.0 > SCREEN_HEIGHT) {
+        gBombYDirection = UP;
+    }
+
+    // if ball is colliding with left or right
+    // end game
+    if (gBombPos.x < 0) {
+        // azazel wins
+        printf("Azazel wins\n");
+        // and then put some text on the screen depending on who won
+    } else if (gBombPos.x > SCREEN_WIDTH) {
+        // isaac wins
+        printf("Isaac wins\n");
+        // and then put some text on the screen depending on who won
+    }
+
+    // if (true /* ball is colliding with players */) {
+    //     if (gBombXDirection == LEFT) {
+    //         gBombXDirection = RIGHT;
+    //     } else {
+    //         gBombXDirection = LEFT;
+    //     }
+    //     if (gBombYDirection == UP) {
+    //         gBombYDirection = DOWN;
+    //     } else {
+    //         gBombYDirection = UP;
+    //     }
+    // }
+
+    if (gBombXDirection == LEFT) {
+        gBombPos.x -= BALL_VELOCITY * deltaTime;
+    } else {
+        gBombPos.x += BALL_VELOCITY * deltaTime;
+    }
+    if (gBombYDirection == UP) {
+        gBombPos.y -= BALL_VELOCITY * deltaTime;
+    } else {
+        gBombPos.y += BALL_VELOCITY * deltaTime;
     }
 }
 
