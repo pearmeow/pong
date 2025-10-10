@@ -27,6 +27,8 @@ constexpr char ROOM_FP[] = "./assets/sac_room.png";
 constexpr char BOMB_FP[] = "./assets/troll_bomb.png";
 constexpr float VELOCITY = 350.0f;
 constexpr float BALL_VELOCITY = 175.0f;
+constexpr float BALL_VELOCITY2 = 155.0f;
+constexpr float BALL_VELOCITY3 = 135.0f;
 constexpr char ISAAC_WINS[] = "./assets/isaac_wins.png";
 constexpr char AZAZEL_WINS[] = "./assets/azazel_wins.png";
 
@@ -260,27 +262,27 @@ void update() {
 
     if (gBomb2Active) {
         if (gBombXDirection2 == LEFT) {
-            gBombPos2.x -= BALL_VELOCITY * deltaTime;
+            gBombPos2.x -= BALL_VELOCITY2 * deltaTime;
         } else {
-            gBombPos2.x += BALL_VELOCITY * deltaTime;
+            gBombPos2.x += BALL_VELOCITY2 * deltaTime;
         }
         if (gBombYDirection2 == UP) {
-            gBombPos2.y -= BALL_VELOCITY * deltaTime;
+            gBombPos2.y -= BALL_VELOCITY2 * deltaTime;
         } else {
-            gBombPos2.y += BALL_VELOCITY * deltaTime;
+            gBombPos2.y += BALL_VELOCITY2 * deltaTime;
         }
     }
 
     if (gBomb3Active) {
         if (gBombXDirection3 == LEFT) {
-            gBombPos3.x -= BALL_VELOCITY * deltaTime;
+            gBombPos3.x -= BALL_VELOCITY3 * deltaTime;
         } else {
-            gBombPos3.x += BALL_VELOCITY * deltaTime;
+            gBombPos3.x += BALL_VELOCITY3 * deltaTime;
         }
         if (gBombYDirection3 == UP) {
-            gBombPos3.y -= BALL_VELOCITY * deltaTime;
+            gBombPos3.y -= BALL_VELOCITY3 * deltaTime;
         } else {
-            gBombPos3.y += BALL_VELOCITY * deltaTime;
+            gBombPos3.y += BALL_VELOCITY3 * deltaTime;
         }
     }
 }
