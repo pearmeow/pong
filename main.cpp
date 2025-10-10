@@ -12,7 +12,7 @@
 
 // Enums
 enum AppStatus { TERMINATED, RUNNING };
-enum Direction { LEFT, RIGHT };
+enum Direction { UP, DOWN };
 
 // Global Constants
 constexpr int SCREEN_WIDTH = 800, SCREEN_HEIGHT = 450, FPS = 60, SIDES = 4;
@@ -26,6 +26,7 @@ constexpr float VELOCITY = 6.0f;
 
 // Global Variables
 AppStatus gAppStatus = RUNNING;
+Direction azazelDirection = UP;
 Texture2D gIsaac;
 Vector2 gIsaacScale = {100.0f, 110.0f};
 Vector2 gIsaacPos = {SCREEN_WIDTH / 5.0f, SCREEN_HEIGHT / 2.0};
@@ -66,20 +67,31 @@ void processInput() {
         gMultiplayer = !gMultiplayer;
     }
 
-    if (IsKeyDown(KEY_W)) {
+    if (IsKeyDown(KEY_W) && gIsaacPos.y - gIsaacScale.y / 2.0 > 0) {
         gIsaacPos.y -= VELOCITY;
         // move isaac up
-    } else if (IsKeyDown(KEY_S)) {
+    } else if (IsKeyDown(KEY_S) && gIsaacPos.y + gIsaacScale.y / 2.0 < SCREEN_HEIGHT) {
         gIsaacPos.y += VELOCITY;
         // move isaac down
     }
 
     if (gMultiplayer) {
-        if (IsKeyDown(KEY_UP)) {
+        if (IsKeyDown(KEY_UP) && gAzazelPos.y - gAzazelScale.y / 2.0 > 0) {
             gAzazelPos.y -= VELOCITY;
             // move azazel up
-        } else if (IsKeyDown(KEY_DOWN)) {
+        } else if (IsKeyDown(KEY_DOWN) && gAzazelPos.y + gAzazelScale.y / 2.0 < SCREEN_HEIGHT) {
             // move azazel down
+            gAzazelPos.y += VELOCITY;
+        }
+    } else {
+        if (gAzazelPos.y - gAzazelScale.y / 2.0 < 0) {
+            azazelDirection = DOWN;
+        } else if (gAzazelPos.y + gAzazelScale.y / 2.0 > SCREEN_HEIGHT) {
+            azazelDirection = UP;
+        }
+        if (azazelDirection == UP) {
+            gAzazelPos.y -= VELOCITY;
+        } else {
             gAzazelPos.y += VELOCITY;
         }
     }
