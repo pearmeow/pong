@@ -24,7 +24,7 @@ constexpr char ISAAC_FP[] = "./assets/isaac.png";
 constexpr char AZAZEL_FP[] = "./assets/azazel.png";
 constexpr char ROOM_FP[] = "./assets/sac_room.png";
 constexpr char BOMB_FP[] = "./assets/troll_bomb.png";
-constexpr float VELOCITY = 275.0f;
+constexpr float VELOCITY = 300.0f;
 constexpr float BALL_VELOCITY = 175.0f;
 
 // Global Variables
@@ -83,6 +83,7 @@ void processInput() {
     }
 
     if (gMultiplayer) {
+        gAzazelDirection = NONE;
         if (IsKeyDown(KEY_UP) && gAzazelPos.y - gAzazelScale.y / 2.0 > 0) {
             gAzazelDirection = UP;
         } else if (IsKeyDown(KEY_DOWN) && gAzazelPos.y + gAzazelScale.y / 2.0 < SCREEN_HEIGHT) {
