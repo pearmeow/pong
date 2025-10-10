@@ -89,8 +89,6 @@ void initialise() {
 
 void processInput() {
     if (WindowShouldClose()) gAppStatus = TERMINATED;
-    // maybe add "R" as a key to reset game won status
-    // if the game is over, return early to stop inputs
     if (IsKeyPressed(KEY_T)) {
         gMultiplayer = !gMultiplayer;
     }
@@ -98,6 +96,14 @@ void processInput() {
         gBombPos = ORIGIN;
         gBombPos2 = ORIGIN;
         gBombPos3 = ORIGIN;
+        gGameOver = false;
+        gIsaacPos = {SCREEN_WIDTH / 8.0f, SCREEN_HEIGHT / 2.0};
+        gAzazelPos = {7.0f * SCREEN_WIDTH / 8.0f, SCREEN_HEIGHT / 2.0};
+        // and reset the time so azazel doesn't teleport!
+        gPreviousTicks = (float)GetTime();
+    }
+    if (gGameOver) {
+        return;
     }
     if (IsKeyPressed(KEY_ONE)) {
         gBomb2Active = false;
@@ -148,7 +154,9 @@ void processInput() {
 
 void update() {
     // if the game is over, return early because there are no more calculations
-
+    if (gGameOver) {
+        return;
+    }
     float ticks = (float)GetTime();
     float deltaTime = ticks - gPreviousTicks;
     gPreviousTicks = ticks;
@@ -191,13 +199,13 @@ void update() {
     // if ball is colliding with left or right
     // end game
     if (gBombPos.x < 0 || gBombPos2.x < 0 || gBombPos3.x < 0) {
-        // azazel wins
         printf("Azazel wins\n");
-        // and then put some text on the screen depending on who won
+        gGameOver = true;
+        // set some texture to display azazel wins
     } else if (gBombPos.x > SCREEN_WIDTH || gBombPos2.x > SCREEN_WIDTH || gBombPos3.x > SCREEN_WIDTH) {
-        // isaac wins
         printf("Isaac wins\n");
-        // and then put some text on the screen depending on who won
+        gGameOver = true;
+        // set some texture to display isaac wins
     }
 
     if (isColliding(&gBombPos, &gBombScale, &gIsaacPos, &gIsaacScale) ||
