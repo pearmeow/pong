@@ -1,7 +1,7 @@
 pong
 ----
 
-A pong game made with raylib
+A pong game made with raylib based on The Binding of Isaac
 
 Features
 --------
@@ -17,4 +17,4 @@ Features
 - [x] Game over when ball hits right and left walls
 - [x] Generate multiple balls when number is pressed
 - [x] Theme in the background
-- [ ] Game over displays texture for who won
+- [x] Game over displays texture for who won
