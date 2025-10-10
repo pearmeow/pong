@@ -12,7 +12,7 @@
 
 // Enums
 enum AppStatus { TERMINATED, RUNNING };
-enum Direction { UP, DOWN };
+enum Direction { NONE, UP, DOWN };
 
 // Global Constants
 constexpr int SCREEN_WIDTH = 800, SCREEN_HEIGHT = 450, FPS = 60, SIDES = 4;
@@ -22,17 +22,18 @@ constexpr char ISAAC_FP[] = "./assets/isaac.png";
 constexpr char AZAZEL_FP[] = "./assets/azazel.png";
 constexpr char ROOM_FP[] = "./assets/sac_room.png";
 constexpr char BOMB_FP[] = "./assets/troll_bomb.png";
-constexpr float VELOCITY = 6.0f;
+constexpr float VELOCITY = 275.0f;
 
 // Global Variables
 AppStatus gAppStatus = RUNNING;
-Direction azazelDirection = UP;
 Texture2D gIsaac;
 Vector2 gIsaacScale = {100.0f, 110.0f};
 Vector2 gIsaacPos = {SCREEN_WIDTH / 5.0f, SCREEN_HEIGHT / 2.0};
+Direction gIsaacDirection = NONE;
 Texture2D gAzazel;
 Vector2 gAzazelScale = gIsaacScale;
 Vector2 gAzazelPos = {4.0f * SCREEN_WIDTH / 5.0f, SCREEN_HEIGHT / 2.0};
+Direction gAzazelDirection = UP;
 Texture2D gRoom;
 Vector2 gRoomScale = {SCREEN_WIDTH, SCREEN_HEIGHT};
 Vector2 gRoomPos = ORIGIN;
@@ -41,6 +42,7 @@ Vector2 gBombScale = {50.0f, 50.0f};
 Vector2 gBombPos = ORIGIN;
 
 bool gMultiplayer = false;
+float gPreviousTicks = 0.0f;
 
 // Function Declarations
 void initialise();
@@ -66,34 +68,44 @@ void processInput() {
     if (IsKeyPressed(KEY_T)) {
         gMultiplayer = !gMultiplayer;
     }
-
+    gIsaacDirection = NONE;
     if (IsKeyDown(KEY_W) && gIsaacPos.y - gIsaacScale.y / 2.0 > 0) {
-        gIsaacPos.y -= VELOCITY;
+        gIsaacDirection = UP;
     } else if (IsKeyDown(KEY_S) && gIsaacPos.y + gIsaacScale.y / 2.0 < SCREEN_HEIGHT) {
-        gIsaacPos.y += VELOCITY;
+        gIsaacDirection = DOWN;
     }
 
     if (gMultiplayer) {
         if (IsKeyDown(KEY_UP) && gAzazelPos.y - gAzazelScale.y / 2.0 > 0) {
-            gAzazelPos.y -= VELOCITY;
+            gAzazelDirection = UP;
         } else if (IsKeyDown(KEY_DOWN) && gAzazelPos.y + gAzazelScale.y / 2.0 < SCREEN_HEIGHT) {
-            gAzazelPos.y += VELOCITY;
+            gAzazelDirection = DOWN;
         }
     } else {
         if (gAzazelPos.y - gAzazelScale.y / 2.0 < 0) {
-            azazelDirection = DOWN;
+            gAzazelDirection = DOWN;
         } else if (gAzazelPos.y + gAzazelScale.y / 2.0 > SCREEN_HEIGHT) {
-            azazelDirection = UP;
-        }
-        if (azazelDirection == UP) {
-            gAzazelPos.y -= VELOCITY;
-        } else {
-            gAzazelPos.y += VELOCITY;
+            gAzazelDirection = UP;
         }
     }
 }
 
 void update() {
+    float ticks = (float)GetTime();
+    float deltaTime = ticks - gPreviousTicks;
+    gPreviousTicks = ticks;
+
+    if (gIsaacDirection == UP) {
+        gIsaacPos.y -= VELOCITY * deltaTime;
+    } else if (gIsaacDirection == DOWN) {
+        gIsaacPos.y += VELOCITY * deltaTime;
+    }
+
+    if (gAzazelDirection == UP) {
+        gAzazelPos.y -= VELOCITY * deltaTime;
+    } else if (gAzazelDirection == DOWN) {
+        gAzazelPos.y += VELOCITY * deltaTime;
+    }
 }
 
 void render() {
