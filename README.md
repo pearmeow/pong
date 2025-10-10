@@ -14,7 +14,7 @@ Features
 - [x] Ball moves in some direction upon game start
 - [x] Ball bounces off top and bottom walls
 - [x] Ball bounces off paddles
-- [ ] Game over when ball hits right and left walls
+- [x] Game over when ball hits right and left walls
 - [x] Generate multiple balls when number is pressed
 - [x] Theme in the background
-- [ ] Game over screen
+- [ ] Game over displays texture for who won
