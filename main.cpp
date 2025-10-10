@@ -70,6 +70,8 @@ void initialise() {
 
 void processInput() {
     if (WindowShouldClose()) gAppStatus = TERMINATED;
+    // maybe add "R" as a key to reset game won status
+    // if the game is over, return early to stop inputs
     if (IsKeyPressed(KEY_T)) {
         gMultiplayer = !gMultiplayer;
     }
@@ -96,6 +98,8 @@ void processInput() {
 }
 
 void update() {
+    // if the game is over, return early because there are no more calculations
+
     float ticks = (float)GetTime();
     float deltaTime = ticks - gPreviousTicks;
     gPreviousTicks = ticks;
@@ -160,6 +164,8 @@ void render() {
     BeginDrawing();
 
     ClearBackground(RAYWHITE);
+
+    // if the game is over, render a texture and return early
 
     Rectangle isaacArea = {0.0f, 0.0f, static_cast<float>(gIsaac.width), static_cast<float>(gIsaac.height)};
     Rectangle azazelArea = {0.0f, 0.0f, static_cast<float>(gAzazel.width), static_cast<float>(gAzazel.height)};
