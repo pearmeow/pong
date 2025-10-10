@@ -25,18 +25,18 @@ constexpr char ISAAC_FP[] = "./assets/isaac.png";
 constexpr char AZAZEL_FP[] = "./assets/azazel.png";
 constexpr char ROOM_FP[] = "./assets/sac_room.png";
 constexpr char BOMB_FP[] = "./assets/troll_bomb.png";
-constexpr float VELOCITY = 300.0f;
+constexpr float VELOCITY = 350.0f;
 constexpr float BALL_VELOCITY = 175.0f;
 
 // Global Variables
 AppStatus gAppStatus = RUNNING;
 Texture2D gIsaac;
 Vector2 gIsaacScale = {70.0f, 80.0f};
-Vector2 gIsaacPos = {SCREEN_WIDTH / 7.0f, SCREEN_HEIGHT / 2.0};
+Vector2 gIsaacPos = {SCREEN_WIDTH / 8.0f, SCREEN_HEIGHT / 2.0};
 Direction gIsaacDirection = NONE;
 Texture2D gAzazel;
 Vector2 gAzazelScale = gIsaacScale;
-Vector2 gAzazelPos = {6.0f * SCREEN_WIDTH / 7.0f, SCREEN_HEIGHT / 2.0};
+Vector2 gAzazelPos = {7.0f * SCREEN_WIDTH / 8.0f, SCREEN_HEIGHT / 2.0};
 Direction gAzazelDirection = UP;
 Texture2D gRoom;
 Vector2 gRoomScale = {SCREEN_WIDTH + 250.0f, SCREEN_HEIGHT + 250.0f};
@@ -144,11 +144,6 @@ void update() {
             gBombXDirection = RIGHT;
         } else {
             gBombXDirection = LEFT;
-        }
-        if (gBombYDirection == UP) {
-            gBombYDirection = DOWN;
-        } else {
-            gBombYDirection = UP;
         }
     }
 
