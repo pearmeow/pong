@@ -35,7 +35,7 @@ Vector2 gAzazelScale = gIsaacScale;
 Vector2 gAzazelPos = {6.0f * SCREEN_WIDTH / 7.0f, SCREEN_HEIGHT / 2.0};
 Direction gAzazelDirection = UP;
 Texture2D gRoom;
-Vector2 gRoomScale = {SCREEN_WIDTH + 200.0f, SCREEN_HEIGHT + 200.0f};
+Vector2 gRoomScale = {SCREEN_WIDTH + 250.0f, SCREEN_HEIGHT + 250.0f};
 Vector2 gRoomPos = ORIGIN;
 Texture2D gBomb;
 Vector2 gBombScale = {40.0f, 40.0f};
@@ -149,7 +149,7 @@ void shutdown() {
     UnloadTexture(gBomb);
 }
 
-int main(void) {
+int main() {
     initialise();
 
     while (gAppStatus == RUNNING) {
