@@ -8,6 +8,7 @@
  * Academic Misconduct.
  */
 
+#include <cmath>
 #include <cstdio>
 
 #include "raylib.h"
@@ -55,6 +56,7 @@ void processInput();
 void update();
 void render();
 void shutdown();
+bool isColliding(const Vector2* positionA, const Vector2* scaleA, const Vector2* positionB, const Vector2* scaleB);
 
 // Function Definitions
 void initialise() {
@@ -136,18 +138,19 @@ void update() {
         // and then put some text on the screen depending on who won
     }
 
-    // if (true /* ball is colliding with players */) {
-    //     if (gBombXDirection == LEFT) {
-    //         gBombXDirection = RIGHT;
-    //     } else {
-    //         gBombXDirection = LEFT;
-    //     }
-    //     if (gBombYDirection == UP) {
-    //         gBombYDirection = DOWN;
-    //     } else {
-    //         gBombYDirection = UP;
-    //     }
-    // }
+    if (isColliding(&gBombPos, &gBombScale, &gIsaacPos, &gIsaacScale) ||
+        isColliding(&gBombPos, &gBombScale, &gAzazelPos, &gAzazelScale)) {
+        if (gBombXDirection == LEFT) {
+            gBombXDirection = RIGHT;
+        } else {
+            gBombXDirection = LEFT;
+        }
+        if (gBombYDirection == UP) {
+            gBombYDirection = DOWN;
+        } else {
+            gBombYDirection = UP;
+        }
+    }
 
     if (gBombXDirection == LEFT) {
         gBombPos.x -= BALL_VELOCITY * deltaTime;
@@ -202,6 +205,16 @@ void shutdown() {
     UnloadTexture(gAzazel);
     UnloadTexture(gRoom);
     UnloadTexture(gBomb);
+}
+
+bool isColliding(const Vector2* positionA, const Vector2* scaleA, const Vector2* positionB,
+                 const Vector2* scaleB) {
+    float xDistance = fabs(positionA->x - positionB->x) - ((scaleA->x + scaleB->x) / 2.0f);
+    float yDistance = fabs(positionA->y - positionB->y) - ((scaleA->y + scaleB->y) / 2.0f);
+    if (xDistance < 0.0f && yDistance < 0.0f) {
+        return true;
+    }
+    return false;
 }
 
 int main() {
