@@ -27,7 +27,7 @@ constexpr float VELOCITY = 275.0f;
 // Global Variables
 AppStatus gAppStatus = RUNNING;
 Texture2D gIsaac;
-Vector2 gIsaacScale = {100.0f, 110.0f};
+Vector2 gIsaacScale = {70.0f, 80.0f};
 Vector2 gIsaacPos = {SCREEN_WIDTH / 5.0f, SCREEN_HEIGHT / 2.0};
 Direction gIsaacDirection = NONE;
 Texture2D gAzazel;
