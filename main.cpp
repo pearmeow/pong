@@ -104,10 +104,19 @@ void processInput() {
         gBomb3Active = false;
     }
     if (IsKeyPressed(KEY_TWO)) {
+        if (!gBomb2Active) {
+            gBombPos2 = ORIGIN;
+        }
         gBomb2Active = true;
         gBomb3Active = false;
     }
     if (IsKeyPressed(KEY_THREE)) {
+        if (!gBomb2Active) {
+            gBombPos2 = ORIGIN;
+        }
+        if (!gBomb3Active) {
+            gBombPos3 = ORIGIN;
+        }
         gBomb2Active = true;
         gBomb3Active = true;
     }
