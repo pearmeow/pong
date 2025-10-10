@@ -27,6 +27,8 @@ constexpr char ROOM_FP[] = "./assets/sac_room.png";
 constexpr char BOMB_FP[] = "./assets/troll_bomb.png";
 constexpr float VELOCITY = 350.0f;
 constexpr float BALL_VELOCITY = 175.0f;
+constexpr char ISAAC_WINS[] = "./assets/isaac_wins.png";
+constexpr char AZAZEL_WINS[] = "./assets/azazel_wins.png";
 
 // Global Variables
 AppStatus gAppStatus = RUNNING;
@@ -62,8 +64,13 @@ Direction gBombXDirection3 = LEFT;
 Direction gBombYDirection3 = DOWN;
 
 bool gGameOver = false;
+bool gIsaacWon = false;
 bool gMultiplayer = false;
 float gPreviousTicks = 0.0f;
+Texture2D gIsaacWins;
+Vector2 gIsaacWinsScale = {650.0f, 250.0f};
+Texture2D gAzazelWins;
+Vector2 gAzazelWinsScale = gIsaacWinsScale;
 
 // Function Declarations
 void initialise();
@@ -83,6 +90,8 @@ void initialise() {
     gBomb = LoadTexture(BOMB_FP);
     gBomb2 = LoadTexture(BOMB_FP);
     gBomb3 = LoadTexture(BOMB_FP);
+    gIsaacWins = LoadTexture(ISAAC_WINS);
+    gAzazelWins = LoadTexture(AZAZEL_WINS);
 
     SetTargetFPS(FPS);
 }
@@ -196,16 +205,15 @@ void update() {
         }
     }
 
-    // if ball is colliding with left or right
-    // end game
+    // if ball is colliding with left or right end game
     if (gBombPos.x < 0 || gBombPos2.x < 0 || gBombPos3.x < 0) {
         printf("Azazel wins\n");
         gGameOver = true;
-        // set some texture to display azazel wins
+        gIsaacWon = false;
     } else if (gBombPos.x > SCREEN_WIDTH || gBombPos2.x > SCREEN_WIDTH || gBombPos3.x > SCREEN_WIDTH) {
         printf("Isaac wins\n");
         gGameOver = true;
-        // set some texture to display isaac wins
+        gIsaacWon = true;
     }
 
     if (isColliding(&gBombPos, &gBombScale, &gIsaacPos, &gIsaacScale) ||
@@ -324,6 +332,25 @@ void render() {
     }
     if (gBomb3Active) {
         DrawTexturePro(gBomb3, bombArea3, bombDest3, bombOrigin3, 0.0f, WHITE);
+    }
+    if (gGameOver) {
+        if (gIsaacWon) {
+            Rectangle isaacWinsArea = {0.0f, 0.0f, static_cast<float>(gIsaacWins.width),
+                                       static_cast<float>(gIsaacWins.height)};
+            Rectangle isaacWinsDest = {ORIGIN.x, ORIGIN.y - 100.0f, static_cast<float>(gIsaacWinsScale.x),
+                                       static_cast<float>(gIsaacWinsScale.y)};
+            Vector2 isaacWinsOrigin = {static_cast<float>(gIsaacWinsScale.x) / 2.0f,
+                                       static_cast<float>(gIsaacWinsScale.y) / 2.0f};
+            DrawTexturePro(gIsaacWins, isaacWinsArea, isaacWinsDest, isaacWinsOrigin, 0.0f, WHITE);
+        } else {
+            Rectangle azazelWinsArea = {0.0f, 0.0f, static_cast<float>(gAzazelWins.width),
+                                        static_cast<float>(gAzazelWins.height)};
+            Rectangle azazelWinsDest = {ORIGIN.x, ORIGIN.y - 100.0f, static_cast<float>(gAzazelWinsScale.x),
+                                        static_cast<float>(gAzazelWinsScale.y)};
+            Vector2 azazelWinsOrigin = {static_cast<float>(gAzazelWinsScale.x) / 2.0f,
+                                        static_cast<float>(gAzazelWinsScale.y) / 2.0f};
+            DrawTexturePro(gAzazelWins, azazelWinsArea, azazelWinsDest, azazelWinsOrigin, 0.0f, WHITE);
+        }
     }
 
     EndDrawing();
