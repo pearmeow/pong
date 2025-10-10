@@ -22,6 +22,7 @@ constexpr char ISAAC_FP[] = "./assets/isaac.png";
 constexpr char AZAZEL_FP[] = "./assets/azazel.png";
 constexpr char ROOM_FP[] = "./assets/sac_room.png";
 constexpr char BOMB_FP[] = "./assets/troll_bomb.png";
+constexpr float VELOCITY = 6.0f;
 
 // Global Variables
 AppStatus gAppStatus = RUNNING;
@@ -37,6 +38,8 @@ Vector2 gRoomPos = ORIGIN;
 Texture2D gBomb;
 Vector2 gBombScale = {50.0f, 50.0f};
 Vector2 gBombPos = ORIGIN;
+
+bool gMultiplayer = false;
 
 // Function Declarations
 void initialise();
@@ -59,6 +62,27 @@ void initialise() {
 
 void processInput() {
     if (WindowShouldClose()) gAppStatus = TERMINATED;
+    if (IsKeyPressed(KEY_T)) {
+        gMultiplayer = !gMultiplayer;
+    }
+
+    if (IsKeyDown(KEY_W)) {
+        gIsaacPos.y -= VELOCITY;
+        // move isaac up
+    } else if (IsKeyDown(KEY_S)) {
+        gIsaacPos.y += VELOCITY;
+        // move isaac down
+    }
+
+    if (gMultiplayer) {
+        if (IsKeyDown(KEY_UP)) {
+            gAzazelPos.y -= VELOCITY;
+            // move azazel up
+        } else if (IsKeyDown(KEY_DOWN)) {
+            // move azazel down
+            gAzazelPos.y += VELOCITY;
+        }
+    }
 }
 
 void update() {

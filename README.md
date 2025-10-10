@@ -7,8 +7,9 @@ Features
 --------
 
 - [x] Two paddles
-- [ ] Movable paddles with WASD and arrow keys for left and right respectively
+- [x] Movable "paddles" with WS and arrow keys for left and right "paddles" respectively
 - [x] Ball that starts in middle
+- [ ] Ball randomly(?) goes left or right and up or down when game starts
 - [ ] Ball bounces off top and bottom walls
 - [ ] Ball bounces off paddles
 - [ ] Game over when ball hits right and left walls
