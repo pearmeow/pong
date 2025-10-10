@@ -77,6 +77,9 @@ void processInput() {
     if (IsKeyPressed(KEY_T)) {
         gMultiplayer = !gMultiplayer;
     }
+    if (IsKeyPressed(KEY_R)) {
+        gBombPos = ORIGIN;
+    }
     gIsaacDirection = NONE;
     if (IsKeyDown(KEY_W) && gIsaacPos.y - gIsaacScale.y / 2.0 > 0) {
         gIsaacDirection = UP;
