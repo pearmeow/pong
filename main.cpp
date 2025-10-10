@@ -69,18 +69,14 @@ void processInput() {
 
     if (IsKeyDown(KEY_W) && gIsaacPos.y - gIsaacScale.y / 2.0 > 0) {
         gIsaacPos.y -= VELOCITY;
-        // move isaac up
     } else if (IsKeyDown(KEY_S) && gIsaacPos.y + gIsaacScale.y / 2.0 < SCREEN_HEIGHT) {
         gIsaacPos.y += VELOCITY;
-        // move isaac down
     }
 
     if (gMultiplayer) {
         if (IsKeyDown(KEY_UP) && gAzazelPos.y - gAzazelScale.y / 2.0 > 0) {
             gAzazelPos.y -= VELOCITY;
-            // move azazel up
         } else if (IsKeyDown(KEY_DOWN) && gAzazelPos.y + gAzazelScale.y / 2.0 < SCREEN_HEIGHT) {
-            // move azazel down
             gAzazelPos.y += VELOCITY;
         }
     } else {
